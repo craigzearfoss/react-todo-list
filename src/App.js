@@ -16,16 +16,35 @@ class App extends Component {
   };
 
   handleChange = (e) => {
-    console.log("handle change");
+    this.setState({
+      item: e.target.value,
+    });
   };
   handleSubmit = (e) => {
-    console.log("handle submit");
+    e.preventDefault();
+    const newItem = {
+      id: this.state.id,
+      title: this.state.item,
+    };
+    const updatedItems = [...this.state.items, newItem];
+
+    this.setState({
+      items: updatedItems,
+      id: uuidv4(),
+      item: "",
+      editItem: false,
+    });
   };
   clearList = () => {
-    console.log("clear list");
+    this.setState({
+      items: [],
+    });
   };
   handleDelete = (id) => {
-    console.log(`handle delete ${id}`);
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    this.setState({
+      items: filteredItems,
+    });
   };
   handleEdit = (id) => {
     console.log(`handle edit ${id}`);
