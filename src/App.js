@@ -6,10 +6,7 @@ import TodoList from "./components/TodoList";
 
 class App extends Component {
   state = {
-    items: [
-      { id: 1, title: "wake up" },
-      { id: 2, title: "make breakfast" },
-    ],
+    items: [],
     id: uuidv4(),
     item: "",
     editItem: false,
@@ -47,6 +44,14 @@ class App extends Component {
     });
   };
   handleEdit = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    const selectedItem = this.state.items.find((item) => item.id === id);
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      id: selectedItem.id,
+      editItem: true,
+    });
     console.log(`handle edit ${id}`);
   };
 
